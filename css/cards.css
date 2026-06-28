@@ -1,0 +1,52 @@
+
+
+.flashcard-container { max-width: 600px; margin: 0 auto; }
+.flashcard { perspective: 1000px; min-height: 300px; cursor: pointer; }
+.flashcard-inner {
+    position: relative;
+    width: 100%;
+    min-height: 300px;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+.flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+.flashcard-front, .flashcard-back {
+    position: absolute;
+    width: 100%;
+    min-height: 300px;
+    backface-visibility: hidden;
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: var(--color-bg);
+    box-shadow: var(--shadow);
+}
+.flashcard-back { transform: rotateY(180deg); }
+.flashcard-front .jp-text {
+    font-family: 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', sans-serif;
+    font-size: 28px;
+    color: #1a1a1a;
+    text-align: center;
+    line-height: 2.2;
+    cursor: pointer;
+}
+.flashcard-front .jp-text:hover {
+    background: #f0f8ff;
+    border-radius: 4px;
+}
+.flashcard-front .en-text {
+    font-size: 16px;
+    color: var(--color-text-light);
+    margin-top: 8px;
+}
+.flashcard-controls {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 20px;
+}
+.flashcard-controls button { padding: 10px 24px; font-size: 16px; }

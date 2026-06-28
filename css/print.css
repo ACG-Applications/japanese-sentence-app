@@ -1,0 +1,52 @@
+@media print {
+    .no-print { display: none !important; }
+    #app-header, #app-nav, #app-footer, .controls { display: none !important; }
+    #app { max-width: 100% !important; padding: 0 !important; }
+    #app-content { padding: 0 !important; }
+    .tab-content { display: block !important; }
+    #tab-learn { display: block !important; }
+
+    .pattern-card {
+        page-break-after: always;
+        page-break-inside: avoid;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 40px !important;
+        margin: 0 !important;
+        border-radius: 0 !important;
+        background: white !important;
+    }
+    .pattern-card:last-child { page-break-after: avoid; }
+
+    ruby rt { display: ruby-text !important; font-size: 0.5em !important; color: black !important; }
+    body, .jp, .jp-bold, .pattern-card, .card-title, .card-meaning {
+        color: black !important;
+        background: white !important;
+    }
+
+    .practice-space {
+        margin-top: 20px;
+        padding-top: 16px;
+        border-top: 2px solid #ccc;
+    }
+    .practice-space .practice-lines { margin-top: 8px; }
+    .practice-space .practice-lines hr {
+        border: none;
+        border-bottom: 1px solid #ddd;
+        margin: 12px 0;
+    }
+
+    .progress-check {
+        margin-top: 16px;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 13px;
+    }
+    .progress-check label { margin-right: 20px; }
+    .card-category {
+        background: #f0f0f0 !important;
+        color: black !important;
+        border: 1px solid #999;
+    }
+}
