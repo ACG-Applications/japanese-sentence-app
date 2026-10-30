@@ -1,54 +1,122 @@
 /* BASE */
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 :root {
-    --color-bg: #ffffff;
-    --color-text: #1a1a1a;
-    --color-text-light: #333333;
-    --color-text-muted: #666666;
-    --color-border: #e0e0e0;
-    --color-primary: #c0392b;
-    --color-primary-light: #e74c3c;
-    --color-secondary: #2980b9;
-    --color-success: #27ae60;
-    --color-warning: #f39c12;
-    --color-shadow: rgba(0,0,0,0.08);
-    --font-jp: 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', sans-serif;
-    --font-en: 'Inter', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-    --radius: 8px;
-    --shadow: 0 2px 8px var(--color-shadow);
+  --color-bg: #ffffff;
+  --color-text: #1a1a1a;
+  --color-text-light: #333333;
+  --color-text-muted: #666666;
+  --color-border: #e0e0e0;
+  --color-primary: #c0392b;
+  --color-primary-light: #e74c3c;
+  --color-secondary: #2980b9;
+  --color-success: #27ae60;
+  --color-warning: #f39c12;
+  --color-shadow: rgba(0, 0, 0, 0.08);
+  --font-jp: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", sans-serif;
+  --font-en: "Inter", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --radius: 8px;
+  --shadow: 0 2px 8px var(--color-shadow);
 }
 
 body {
-    background: var(--color-bg);
-    color: var(--color-text);
-    font-family: var(--font-en);
-    font-size: 16px;
-    line-height: 1.7;
-    -webkit-font-smoothing: antialiased;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-en);
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
 }
 
-.jp { font-family: var(--font-jp); color: var(--color-text); font-weight: 400; }
-.jp-bold { font-family: var(--font-jp); color: var(--color-text); font-weight: 700; }
+.jp {
+  font-family: var(--font-jp);
+  color: var(--color-text);
+  font-weight: 500;
+}
+.jp-bold {
+  font-family: var(--font-jp);
+  color: var(--color-text);
+  font-weight: 700;
+}
 
-ruby { ruby-align: center; }
+ruby {
+  ruby-align: center;
+}
 ruby rt {
-    font-size: 0.55em;
-    font-weight: 400;
-    color: var(--color-text);
-    letter-spacing: 0.02em;
+  font-size: 0.55em;
+  font-weight: 400;
+  color: var(--color-primary);
+  letter-spacing: 0.02em;
 }
-body.furigana-hidden ruby rt { display: none !important; }
+body.furigana-hidden ruby rt {
+  display: none !important;
+}
 
-h1, h2, h3, h4, h5, h6 { color: var(--color-text); font-weight: 700; }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--color-text);
+  font-weight: 700;
+}
 
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: #f0f0f0; border-radius: 3px; }
-::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #aaa; }
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #aaa;
+}
 
 @media print {
-    body { background: white !important; color: black !important; font-size: 12px; }
-    .no-print { display: none !important; }
-    ruby rt { display: ruby-text !important; font-size: 0.5em !important; color: black !important; }
+  body {
+    background: white !important;
+    color: black !important;
+    font-size: 12px;
+  }
+  .no-print {
+    display: none !important;
+  }
+  ruby rt {
+    display: ruby-text !important;
+    font-size: 0.5em !important;
+    color: black !important;
+  }
+}
+/* Add this to the bottom of main.css */
+ruby,
+.jp,
+.jp-example,
+.jp-text,
+.vocab-jp {
+  font-weight: 500;
+}
+/* Force all furigana to be red */
+ruby rt,
+.jp-example ruby rt,
+.flashcard-front .jp-text ruby rt,
+.vocab-jp ruby rt {
+  color: var(--color-primary) !important;
+}
+/* Bulletproof Furigana Red */
+rt,
+ruby rt,
+.jp-example ruby rt,
+.jp-text ruby rt {
+  color: #c0392b !important;
+  -webkit-text-fill-color: #c0392b !important; /* Force color in WebKit browsers */
 }

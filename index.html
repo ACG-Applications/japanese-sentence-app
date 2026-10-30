@@ -1,716 +1,116 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="icons/icon-192x192.png">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="JapStructure">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Japanese Sentence Structure</title>
-    <style>
-        /* ─── ALL STYLES ─── */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html, body { height: 100%; }
-        body {
-            background: #ffffff;
-            color: #1a1a1a;
-            font-family: 'Segoe UI', Arial, sans-serif;
-            font-size: 16px;
-            line-height: 1.7;
-            padding: 0 20px;
-        }
-        #app {
-            max-width: 1200px;
-            margin: 0 auto;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="JapStructure" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png" />
 
-        /* ─── STICKY HEADER ─── */
-        #app-header {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: white;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 2px solid #e0e0e0;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        .logo { 
-            font-size: 20px; 
-            font-weight: 700; 
-            color: #1a1a1a;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .logo-icon { font-size: 24px; }
-        .controls { 
-            display: flex; 
-            gap: 6px; 
-            flex-wrap: wrap; 
-            align-items: center;
-        }
-        .toggle-btn {
-            padding: 5px 10px;
-            border: 1.5px solid #e0e0e0;
-            border-radius: 6px;
-            background: white;
-            cursor: pointer;
-            font-size: 12px;
-            font-family: inherit;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 3px;
-            color: #1a1a1a;
-            user-select: none;
-        }
-        .toggle-btn:hover { background: #f5f5f5; border-color: #bbb; }
-        .toggle-btn .toggle-icon { font-weight: 700; }
-        .toggle-status {
-            font-size: 9px;
-            font-weight: 700;
-            padding: 1px 5px;
-            border-radius: 10px;
-            min-width: 24px;
-            text-align: center;
-        }
-        .toggle-status.on { background: #27ae60; color: white; }
-        .toggle-status.off { background: #ccc; color: #666; }
-
-        /* ─── STICKY NAV ─── */
-        #app-nav {
-            position: sticky;
-            top: 64px;
-            z-index: 99;
-            background: white;
-            display: flex;
-            gap: 4px;
-            padding: 10px 0;
-            border-bottom: 1px solid #e0e0e0;
-            flex-wrap: wrap;
-        }
-        .nav-btn {
-            padding: 6px 14px;
-            border: none;
-            border-radius: 6px;
-            background: transparent;
-            cursor: pointer;
-            font-size: 14px;
-            font-family: inherit;
-            color: #666;
-            transition: all 0.2s;
-        }
-        .nav-btn:hover { background: #f0f0f0; color: #1a1a1a; }
-        .nav-btn.active { background: #c0392b; color: white; }
-
-        #app-content { flex: 1; padding: 16px 0; }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
-
-        #app-footer {
-            padding: 10px 0;
-            border-top: 1px solid #e0e0e0;
-            font-size: 13px;
-            color: #666;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        /* ─── PATTERN CARDS ─── */
-        .card-container { display: grid; grid-template-columns: 1fr; gap: 20px; }
-        @media (min-width: 768px) { .card-container { grid-template-columns: 1fr 1fr; } }
-
-        .pattern-card {
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 20px;
-            background: white;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-            page-break-inside: avoid;
-        }
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-bottom: 6px;
-            border-bottom: 3px solid #c0392b;
-            margin-bottom: 10px;
-        }
-        .card-number { font-size: 13px; font-weight: 700; color: #c0392b; }
-        .card-category {
-            font-size: 11px;
-            font-weight: 600;
-            padding: 2px 10px;
-            border-radius: 12px;
-            background: #f0f0f0;
-            color: #666;
-        }
-        .card-title {
-            font-size: 20px;
-            font-weight: 700;
-            font-family: 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', sans-serif;
-            color: #1a1a1a;
-            margin-bottom: 6px;
-        }
-        .card-meaning { font-size: 15px; color: #333; margin-bottom: 10px; }
-        .card-structure {
-            background: #f7f7f7;
-            padding: 6px 14px;
-            border-radius: 6px;
-            font-family: 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', sans-serif;
-            font-size: 17px;
-            margin-bottom: 10px;
-            border-left: 4px solid #c0392b;
-            color: #1a1a1a;
-        }
-        .card-examples { margin: 10px 0; }
-        .card-example {
-            padding: 6px 10px;
-            border-bottom: 1px solid #f0f0f0;
-            cursor: pointer;
-            transition: background 0.2s;
-            border-radius: 4px;
-        }
-        .card-example:hover {
-            background: #f5f9fc;
-        }
-        .card-example:last-child { border-bottom: none; }
-        .jp-example {
-            font-family: 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', sans-serif;
-            font-size: 20px;
-            color: #1a1a1a;
-            line-height: 2.2;
-            cursor: pointer;
-        }
-        .jp-example:hover {
-            background: #f0f8ff;
-        }
-        .jp-example ruby {
-            ruby-align: center;
-        }
-        .jp-example ruby rt {
-            font-size: 0.5em;
-            font-weight: 400;
-            color: #1a1a1a;
-            letter-spacing: 0.02em;
-        }
-        .en-example {
-            font-size: 14px;
-            color: #333;
-            margin-top: 2px;
-        }
-        .card-notes {
-            margin-top: 10px;
-            padding: 8px 12px;
-            background: #faf3e8;
-            border-radius: 6px;
-            font-size: 13px;
-            color: #333;
-            border-left: 4px solid #f39c12;
-        }
-        .card-conjugations {
-            margin-top: 10px;
-            padding: 8px 12px;
-            background: #f0f4f8;
-            border-radius: 6px;
-            font-size: 13px;
-            border-left: 4px solid #2980b9;
-            color: #1a1a1a;
-        }
-        .conj-row { display: flex; gap: 12px; flex-wrap: wrap; }
-        .conj-label { font-weight: 600; color: #666; min-width: 50px; }
-
-        /* ─── FURIGANA TOGGLE ─── */
-        body.furigana-hidden .jp-example ruby rt {
-            display: none !important;
-        }
-        body.furigana-hidden .flashcard-front ruby rt {
-            display: none !important;
-        }
-        body.furigana-hidden .jp-text ruby rt {
-            display: none !important;
-        }
-
-        /* ─── QUIZ ─── */
-        .quiz-container { max-width: 700px; margin: 0 auto; }
-        .quiz-header {
-            display: flex;
-            justify-content: space-between;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #e0e0e0;
-            margin-bottom: 16px;
-        }
-        .quiz-question { font-size: 18px; font-weight: 600; margin-bottom: 16px; color: #1a1a1a; }
-        .quiz-prompt {
-            font-family: 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', sans-serif;
-            font-size: 22px;
-            padding: 14px 18px;
-            background: #f7f7f7;
-            border-radius: 6px;
-            margin-bottom: 16px;
-            text-align: center;
-            color: #1a1a1a;
-            cursor: pointer;
-        }
-        .quiz-prompt:hover {
-            background: #eef4f8;
-        }
-        .quiz-options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
-        .quiz-option {
-            padding: 10px 14px;
-            border: 2px solid #e0e0e0;
-            border-radius: 6px;
-            background: white;
-            cursor: pointer;
-            font-size: 15px;
-            text-align: left;
-            font-family: inherit;
-            color: #1a1a1a;
-            transition: all 0.2s;
-        }
-        .quiz-option:hover { border-color: #2980b9; background: #f5f9fc; }
-        .quiz-option.correct { border-color: #27ae60; background: #eafaf1; }
-        .quiz-option.wrong { border-color: #c0392b; background: #fdedec; }
-        .quiz-option.disabled { cursor: default; }
-        .quiz-option .option-label { font-weight: 600; color: #666; margin-right: 8px; }
-        .quiz-feedback {
-            padding: 10px 14px;
-            border-radius: 6px;
-            margin-bottom: 14px;
-        }
-        .quiz-feedback.correct { background: #eafaf1; border-left: 4px solid #27ae60; }
-        .quiz-feedback.wrong { background: #fdedec; border-left: 4px solid #c0392b; }
-        .quiz-actions { display: flex; gap: 10px; justify-content: center; }
-        .quiz-mode-selector { display: flex; gap: 6px; margin-bottom: 16px; flex-wrap: wrap; }
-        .quiz-mode-btn {
-            padding: 5px 14px;
-            border: 2px solid #e0e0e0;
-            border-radius: 6px;
-            background: white;
-            cursor: pointer;
-            font-size: 13px;
-            font-family: inherit;
-            color: #666;
-            transition: all 0.2s;
-        }
-        .quiz-mode-btn:hover { border-color: #bbb; }
-        .quiz-mode-btn.active { border-color: #c0392b; background: #c0392b; color: white; }
-        .quiz-result { text-align: center; padding: 30px; }
-        .quiz-result .score { font-size: 40px; font-weight: 700; color: #c0392b; }
-
-        /* ─── FLASHCARDS ─── */
-        .flashcard-container { max-width: 600px; margin: 0 auto; }
-        .flashcard { perspective: 1000px; min-height: 280px; cursor: pointer; }
-        .flashcard-inner {
-            position: relative;
-            width: 100%;
-            min-height: 280px;
-            transition: transform 0.6s;
-            transform-style: preserve-3d;
-        }
-        .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
-        .flashcard-front, .flashcard-back {
-            position: absolute;
-            width: 100%;
-            min-height: 280px;
-            backface-visibility: hidden;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background: white;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-        }
-        .flashcard-back { transform: rotateY(180deg); }
-        .flashcard-front .jp-text {
-            font-family: 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', sans-serif;
-            font-size: 28px;
-            color: #1a1a1a;
-            text-align: center;
-            line-height: 2.2;
-            cursor: pointer;
-        }
-        .flashcard-front .jp-text ruby rt {
-            font-size: 0.5em;
-        }
-        .flashcard-front .en-text {
-            font-size: 16px;
-            color: #333;
-            margin-top: 8px;
-        }
-        .flashcard-controls { display: flex; justify-content: center; gap: 10px; margin-top: 16px; }
-        .btn {
-            padding: 6px 16px;
-            border: none;
-            border-radius: 6px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-family: inherit;
-        }
-        .btn-primary { background: #c0392b; color: white; }
-        .btn-primary:hover { background: #a93226; }
-        .btn-secondary { background: #2980b9; color: white; }
-        .btn-secondary:hover { background: #1f6f8f; }
-
-        /* ─── TTS INDICATOR ─── */
-        .tts-speaking {
-            animation: ttsPulse 0.5s ease-in-out 3;
-            background: #eaf4f9 !important;
-        }
-        @keyframes ttsPulse {
-            0%, 100% { background: transparent; }
-            50% { background: #d4e6f1; }
-        }
-
-        /* ─── VOCABULARY ─── */
-        .vocab-container { max-width: 900px; margin: 0 auto; }
-        .vocab-list { display: grid; grid-template-columns: 1fr; gap: 3px; }
-        .vocab-item {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr auto;
-            gap: 10px;
-            padding: 6px 10px;
-            border-bottom: 1px solid #f0f0f0;
-            align-items: center;
-        }
-        .vocab-item .vocab-jp {
-            font-family: 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', sans-serif;
-            font-size: 17px;
-            color: #1a1a1a;
-            cursor: pointer;
-        }
-        .vocab-item .vocab-jp:hover {
-            background: #f0f8ff;
-        }
-        .vocab-item .vocab-kana { font-size: 12px; color: #666; }
-        .vocab-item .vocab-en { font-size: 13px; color: #333; }
-        .vocab-item .vocab-tag {
-            font-size: 10px;
-            padding: 1px 8px;
-            border-radius: 10px;
-            background: #f0f0f0;
-            color: #666;
-        }
-        @media (max-width: 600px) {
-            .vocab-item { grid-template-columns: 1fr 1fr; gap: 3px 10px; }
-            .vocab-item .vocab-tag { grid-column: span 2; }
-        }
-
-        /* ─── PRINT STYLES ─── */
-        @media print {
-            .no-print { display: none !important; }
-            #app-header, #app-nav, #app-footer, .controls { display: none !important; }
-            #app { max-width: 100% !important; padding: 0 !important; display: block !important; }
-            #app-content { padding: 0 !important; display: block !important; }
-            .tab-content { display: block !important; page-break-after: avoid; }
-            #tab-learn { display: block !important; }
-            .card-container { display: block !important; max-width: 100% !important; }
-            .pattern-card {
-                page-break-after: always;
-                page-break-inside: avoid;
-                border: 1px solid #ddd !important;
-                box-shadow: none !important;
-                padding: 30px !important;
-                margin: 10px 0 !important;
-                border-radius: 0 !important;
-                background: white !important;
-                width: 100% !important;
-                max-width: 100% !important;
-            }
-            .pattern-card:last-child { page-break-after: avoid; }
-            .jp-example ruby rt { display: ruby-text !important; font-size: 0.5em !important; color: #333 !important; }
-            .flashcard-front ruby rt { display: ruby-text !important; font-size: 0.5em !important; color: #333 !important; }
-            body, .jp, .jp-bold, .pattern-card, .card-title, .card-meaning,
-            .jp-example, .en-example, .card-notes, .card-conjugations {
-                color: black !important;
-                background: white !important;
-            }
-            .card-number { color: #c0392b !important; }
-            .card-category { background: #f0f0f0 !important; color: #666 !important; border: 1px solid #ddd !important; }
-            .card-conjugations { border-left: 4px solid #2980b9 !important; background: #f0f4f8 !important; }
-            .card-notes { border-left: 4px solid #f39c12 !important; background: #faf3e8 !important; }
-            .card-structure { border-left: 4px solid #c0392b !important; background: #f7f7f7 !important; }
-            .pattern-card { width: 100% !important; max-width: 100% !important; box-sizing: border-box !important; }
-        }
-    </style>
-</head>
-<body>
-
-<div id="app">
-    <header id="app-header">
+    <!-- EXTERNAL STYLESHEETS -->
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/cards.css" />
+    <link rel="stylesheet" href="css/quiz.css" />
+    <link rel="stylesheet" href="css/vocabulary.css" />
+    <link rel="stylesheet" href="css/print.css" media="print" />
+  </head>
+  <body>
+    <div id="app">
+      <header id="app-header">
         <div class="logo">
-            <span class="logo-icon">🗾</span>
-            <span>Japanese Structure</span>
+          <span class="logo-icon">🗾</span>
+          <span>Japanese Structure</span>
         </div>
         <div class="controls no-print">
-            <button class="toggle-btn" id="furigana-toggle">
-                <span class="toggle-icon">F</span>
-                <span>Furigana</span>
-                <span class="toggle-status on">ON</span>
-            </button>
-            <button class="toggle-btn" id="translation-toggle">
-                <span class="toggle-icon">T</span>
-                <span>Translation</span>
-                <span class="toggle-status on">ON</span>
-            </button>
-            <button class="toggle-btn" id="tts-toggle">
-                <span class="toggle-icon">S</span>
-                <span>TTS</span>
-                <span class="toggle-status off">OFF</span>
-            </button>
-            <button class="toggle-btn" onclick="window.print()" style="background:#2980b9;color:white;border-color:#2980b9;">
-                <span class="toggle-icon">🖨️</span>
-                <span>Print</span>
-            </button>
+          <button class="toggle-btn" id="furigana-toggle">
+            <span class="toggle-icon">F</span>
+            <span>Furigana</span>
+            <span class="toggle-status on">ON</span>
+          </button>
+          <button class="toggle-btn" id="translation-toggle">
+            <span class="toggle-icon">T</span>
+            <span>Translation</span>
+            <span class="toggle-status on">ON</span>
+          </button>
+          <button class="toggle-btn" id="tts-toggle">
+            <span class="toggle-icon">S</span>
+            <span>TTS</span>
+            <span class="toggle-status off">OFF</span>
+          </button>
+          <button
+            class="toggle-btn"
+            onclick="window.print()"
+            style="background: #2980b9; color: white; border-color: #2980b9"
+          >
+            <span class="toggle-icon">🖨️</span>
+            <span>Print</span>
+          </button>
         </div>
-    </header>
+      </header>
 
-    <nav id="app-nav" class="no-print">
+      <nav id="app-nav" class="no-print">
         <button class="nav-btn active" data-tab="learn">Learn</button>
         <button class="nav-btn" data-tab="cards">Cards</button>
         <button class="nav-btn" data-tab="quiz">Quiz</button>
         <button class="nav-btn" data-tab="vocabulary">Vocab</button>
         <button class="nav-btn" data-tab="grammar">Grammar</button>
-    </nav>
+      </nav>
 
-    <main id="app-content">
+      <main id="app-content">
         <div id="tab-learn" class="tab-content active"></div>
         <div id="tab-cards" class="tab-content"></div>
         <div id="tab-quiz" class="tab-content"></div>
         <div id="tab-vocabulary" class="tab-content"></div>
         <div id="tab-grammar" class="tab-content"></div>
-    </main>
+      </main>
 
-    <footer id="app-footer" class="no-print">
+      <footer id="app-footer" class="no-print">
         <div>Progress: <span id="progress-count">0/35</span> patterns</div>
         <div>v1.0</div>
-    </footer>
-</div>
+      </footer>
+    </div>
 
-<!-- Load data FIRST -->
-<script src="js/data/MasterDictionary.js"></script>
+    <!-- LOAD DATA FIRST -->
+    <script src="js/data/MasterDictionary.js"></script>
 
-<!-- Load tab modules -->
-<script src="js/tabs/learn.js"></script>
-<script src="js/tabs/cards.js"></script>
-<script src="js/tabs/quiz.js"></script>
-<script src="js/tabs/vocabulary.js"></script>
-<script src="js/tabs/grammar.js"></script>
+    <!-- LOAD CORE MODULES -->
+    <script src="js/toggles.js"></script>
+    <script src="js/furigana.js"></script>
+    <script src="js/router.js"></script>
+    <script src="js/tts.js"></script>
 
-<!-- Main App Script -->
-<script>
-// =====================================================================
-// APP CONTROLLER
-// =====================================================================
+    <!-- LOAD TAB MODULES -->
+    <script src="js/tabs/learn.js"></script>
+    <script src="js/tabs/cards.js"></script>
+    <script src="js/tabs/quiz.js"></script>
+    <script src="js/tabs/vocabulary.js"></script>
+    <script src="js/tabs/grammar.js"></script>
 
-var App = {
-    patterns: [],
-    currentTab: "learn",
-    furiganaVisible: true,
-    translationVisible: true,
-    ttsEnabled: false,
+    <!-- MAIN APP CONTROLLER -->
+    <script src="js/app.js"></script>
 
-    init: function() {
-        this.patterns = window.MasterDictionary ? window.MasterDictionary.patterns : [];
-        console.log("Loaded " + this.patterns.length + " patterns from MasterDictionary");
-
-        var navBtns = document.querySelectorAll(".nav-btn");
-        for (var i = 0; i < navBtns.length; i++) {
-            navBtns[i].addEventListener("click", function() {
-                App.navigate(this.dataset.tab);
-            });
-        }
-
-        document.getElementById("furigana-toggle").addEventListener("click", function() {
-            App.toggleFurigana();
-        });
-        document.getElementById("translation-toggle").addEventListener("click", function() {
-            App.toggleTranslation();
-        });
-        document.getElementById("tts-toggle").addEventListener("click", function() {
-            App.toggleTTS();
-        });
-
-        if (window.LearnTab) LearnTab.init();
-        if (window.CardsTab) CardsTab.init();
-        if (window.QuizTab) QuizTab.init();
-        if (window.VocabularyTab) VocabularyTab.init();
-        if (window.GrammarTab) GrammarTab.init();
-
-        this.renderTab("learn");
-        this.updateProgress();
-        console.log("Furigana visible: " + this.furiganaVisible);
-    },
-
-    navigate: function(tab) {
-        this.currentTab = tab;
-        var navBtns = document.querySelectorAll(".nav-btn");
-        for (var i = 0; i < navBtns.length; i++) {
-            navBtns[i].classList.toggle("active", navBtns[i].dataset.tab === tab);
-        }
-        var contents = document.querySelectorAll(".tab-content");
-        for (var j = 0; j < contents.length; j++) {
-            contents[j].classList.toggle("active", contents[j].id === "tab-" + tab);
-        }
-        this.renderTab(tab);
-    },
-
-    renderTab: function(tab) {
-        switch(tab) {
-            case "learn": if (window.LearnTab) LearnTab.render(); break;
-            case "cards": if (window.CardsTab) CardsTab.render(); break;
-            case "quiz": if (window.QuizTab) QuizTab.render(); break;
-            case "vocabulary": if (window.VocabularyTab) VocabularyTab.render(); break;
-            case "grammar": if (window.GrammarTab) GrammarTab.render(); break;
-        }
-        // Attach TTS to ALL Japanese text elements across ALL tabs
-        this.attachTTSListeners();
-    },
-
-    // ─── TTS: Strip HTML tags for clean speech (removes furigana) ───
-    stripHtml: function(html) {
-        var temp = document.createElement("div");
-        temp.innerHTML = html;
-        var rtElements = temp.querySelectorAll("rt");
-        for (var i = 0; i < rtElements.length; i++) {
-            rtElements[i].parentNode.removeChild(rtElements[i]);
-        }
-        var rubyElements = temp.querySelectorAll("ruby");
-        for (var j = 0; j < rubyElements.length; j++) {
-            var ruby = rubyElements[j];
-            var parent = ruby.parentNode;
-            while (ruby.firstChild) {
-                parent.insertBefore(ruby.firstChild, ruby);
-            }
-            parent.removeChild(ruby);
-        }
-        return temp.textContent || temp.innerText || "";
-    },
-
-   // ─── TTS: Speak Japanese text ───
-speakText: function(text) {
-    if (!this.ttsEnabled) {
-        console.log("TTS is disabled. Click the S button to enable.");
-        return;
-    }
-    var cleanText = this.stripHtml(text);
-    if (window.speechSynthesis) {
-        var utterance = new SpeechSynthesisUtterance(cleanText);
-        utterance.lang = "ja-JP";
-        utterance.rate = 0.9;
-        utterance.pitch = 1;
-        utterance.volume = 1;
-        window.speechSynthesis.speak(utterance);
-        console.log("Speaking: " + cleanText);
-    } else {
-        console.log("Speech synthesis not supported in this browser.");
-    }
-},
-
- // ─── Attach TTS listeners to ALL Japanese text elements across ALL tabs ───
-attachTTSListeners: function() {
-    // Target ALL Japanese text elements across ALL tabs
-    var selectors = [
-        '#tab-learn .jp-example',
-        '#tab-cards .jp-text',
-        '#tab-vocabulary .vocab-jp',
-        '#tab-quiz .quiz-prompt',
-        '#tab-grammar .jp-example'
-    ];
-    
-    for (var s = 0; s < selectors.length; s++) {
-        var elements = document.querySelectorAll(selectors[s]);
-        for (var i = 0; i < elements.length; i++) {
-            // Remove old listener to avoid duplicates
-            elements[i].removeEventListener("click", this._ttsHandler);
-            // Add new listener
-            elements[i].addEventListener("click", this._ttsHandler);
-        }
-    }
-},
-
-_ttsHandler: function(e) {
-    // Stop propagation so the card flip doesn't trigger
-    e.stopPropagation();
-    // Get the text - prefer data-jp attribute if it exists (for cards)
-    var text = this.getAttribute('data-jp') || this.innerHTML || this.textContent;
-    App.speakText(text);
-    this.classList.add("tts-speaking");
-    setTimeout(function() {
-        this.classList.remove("tts-speaking");
-    }.bind(this), 1500);
-},
-
-    toggleFurigana: function() {
-        this.furiganaVisible = !this.furiganaVisible;
-        if (this.furiganaVisible) {
-            document.body.classList.remove("furigana-hidden");
-        } else {
-            document.body.classList.add("furigana-hidden");
-        }
-        var status = document.querySelector("#furigana-toggle .toggle-status");
-        if (status) {
-            status.textContent = this.furiganaVisible ? "ON" : "OFF";
-            status.className = "toggle-status " + (this.furiganaVisible ? "on" : "off");
-        }
-        this.renderTab(this.currentTab);
-    },
-
-    toggleTranslation: function() {
-        this.translationVisible = !this.translationVisible;
-        var status = document.querySelector("#translation-toggle .toggle-status");
-        if (status) {
-            status.textContent = this.translationVisible ? "ON" : "OFF";
-            status.className = "toggle-status " + (this.translationVisible ? "on" : "off");
-        }
-        if (window.LearnTab) LearnTab.render();
-    },
-
-    toggleTTS: function() {
-        this.ttsEnabled = !this.ttsEnabled;
-        var status = document.querySelector("#tts-toggle .toggle-status");
-        if (status) {
-            status.textContent = this.ttsEnabled ? "ON" : "OFF";
-            status.className = "toggle-status " + (this.ttsEnabled ? "on" : "off");
-        }
-        console.log("TTS is now " + (this.ttsEnabled ? "ON" : "OFF"));
-    },
-
-    updateProgress: function() {
-        var count = document.getElementById("progress-count");
-        if (count) count.textContent = "0/" + this.patterns.length;
-    }
-};
-
-document.addEventListener("DOMContentLoaded", function() { App.init(); });
-</script>
-<!-- Register Service Worker for offline support -->
-<script>
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-        navigator.serviceWorker.register('./sw.js')
-            .then(function(registration) {
-                console.log('ServiceWorker registration successful with scope: ', registration.scope);
+    <!-- REGISTER SERVICE WORKER -->
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", function () {
+          navigator.serviceWorker
+            .register("./sw.js")
+            .then(function (registration) {
+              console.log(
+                "ServiceWorker registration successful with scope: ",
+                registration.scope,
+              );
             })
-            .catch(function(err) {
-                console.log('ServiceWorker registration failed: ', err);
+            .catch(function (err) {
+              console.log("ServiceWorker registration failed: ", err);
             });
-    });
-}
-</script>
-</body>
+        });
+      }
+    </script>
+  </body>
 </html>

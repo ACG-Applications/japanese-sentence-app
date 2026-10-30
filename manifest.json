@@ -2,7 +2,7 @@
   "name": "Japanese Sentence Structure",
   "short_name": "JapStructure",
   "description": "Learn Japanese sentence structures with interactive flashcards and quizzes",
-  "start_url": "index.html",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#c0392b",
