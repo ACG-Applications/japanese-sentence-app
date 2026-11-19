@@ -406,7 +406,7 @@ var MasterDictionary = {
         },
       },
       notes:
-        "あげる = giving OUTWARD (speaker -> others). くれる = giving INWARD (others -> speaker). もらう = receiving.",
+        "あげる = giving OUTWARD (speaker -> others). くれる = giving INWARD (others -> speaker). もらう = receiving. See #26 and #27 for the て-forms.",
       common_mistakes: [
         {
           mistake: "友達が本をくれました",
@@ -524,7 +524,13 @@ var MasterDictionary = {
           en: "Please write",
           furigana: "<ruby>書<rt>か</rt></ruby>いてください",
         },
-      ],
+                {
+            jp: "食べないでください",
+            en: "Please don't eat",
+            furigana:
+              "<ruby>食<rt>た</rt></ruby>べないでください",
+          },
+        ],
       conjugations: {
         polite: { aff: "てください", neg: "ないでください" },
       },
@@ -560,7 +566,7 @@ var MasterDictionary = {
       conjugations: {
         polite: { aff: "てもいいです", neg: "てはいけません" },
       },
-      notes: "てはいけません = must not do.",
+      notes: "てはいけません = must not do. See #13.",
       common_mistakes: [
         {
           mistake: "食べていいですか？",
@@ -661,7 +667,13 @@ var MasterDictionary = {
           furigana:
             "<ruby>早<rt>はや</rt></ruby>く<ruby>寝<rt>ね</rt></ruby>たほうがいい",
         },
-      ],
+                {
+            jp: "行かないほうがいい",
+            en: "You'd better not go",
+            furigana:
+              "<ruby>行<rt>い</rt></ruby>かないほうがいい",
+          },
+        ],
       conjugations: {
         polite: { aff: "ほうがいいです", neg: "ほうがいいです" },
       },
@@ -903,7 +915,13 @@ var MasterDictionary = {
           en: "How about trying to eat it?",
           furigana: "<ruby>食<rt>た</rt></ruby>べてみたらどう？",
         },
-      ],
+                {
+            jp: "行ったらどうですか？",
+            en: "How about going? (polite)",
+            furigana:
+              "<ruby>行<rt>い</rt></ruby>ったらどうですか？",
+          },
+        ],
       notes: "Casual suggestion. Polite version: たらどうですか？",
       common_mistakes: [
         {
@@ -1198,7 +1216,13 @@ var MasterDictionary = {
           en: "Please don't drink too much",
           furigana: "<ruby>飲<rt>の</rt></ruby>みすぎないでください",
         },
-      ],
+                {
+            jp: "この車は高すぎる",
+            en: "This car is too expensive",
+            furigana:
+              "この<ruby>車<rt>くるま</rt></ruby>は<ruby>高<rt>たか</rt></ruby>すぎる",
+          },
+        ],
       conjugations: {
         polite: { aff: "すぎます", past: "すぎました", neg: "すぎません" },
         plain: { aff: "すぎる", past: "すぎた", neg: "すぎない" },
@@ -1231,7 +1255,13 @@ var MasterDictionary = {
           en: "I'll do my homework in advance",
           furigana: "<ruby>宿題<rt>しゅくだい</rt></ruby>をやっておきます",
         },
-      ],
+                {
+            jp: "準備しとく",
+            en: "I'll prepare in advance (casual)",
+            furigana:
+              "<ruby>準備<rt>じゅんび</rt></ruby>しとく",
+          },
+        ],
       conjugations: {
         polite: { aff: "ておきます", past: "ておきました" },
         plain: { aff: "ておく", past: "ておいた" },
