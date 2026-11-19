@@ -406,7 +406,7 @@ var MasterDictionary = {
         },
       },
       notes:
-        "あげる = giving OUTWARD (speaker -> others). くれる = giving INWARD (others -> speaker). もらう = receiving. See #26 and #27 for the て-forms.",
+        "あげる = giving OUTWARD (speaker -> others). くれる = giving INWARD (others -> speaker). もらう = receiving. See <a href='#pattern-26' class='xref'>#26</a> and <a href='#pattern-27' class='xref'>#27</a> for the て-forms.",
       common_mistakes: [
         {
           mistake: "友達が本をくれました",
@@ -452,7 +452,7 @@ var MasterDictionary = {
         },
       },
       notes:
-        "欲しい is an I-ADJECTIVE. ONLY for nouns (things you want to HAVE). For actions, use たい. See #21.",
+        "欲しい is an I-ADJECTIVE. ONLY for nouns (things you want to HAVE). For actions, use たい. See <a href='#pattern-21' class='xref'>#21</a>.",
       common_mistakes: [
         {
           mistake: "食べたいを欲しい",
@@ -566,7 +566,7 @@ var MasterDictionary = {
       conjugations: {
         polite: { aff: "てもいいです", neg: "てはいけません" },
       },
-      notes: "てはいけません = must not do. See #13.",
+      notes: "てはいけません = must not do. See <a href='#pattern-13' class='xref'>#13</a>.",
       common_mistakes: [
         {
           mistake: "食べていいですか？",

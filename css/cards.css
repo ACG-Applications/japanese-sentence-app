@@ -50,3 +50,23 @@
     margin-top: 20px;
 }
 .flashcard-controls button { padding: 10px 24px; font-size: 16px; }
+/* A note can point at another card, e.g. "See #21." - make it a real jump. */
+.xref {
+  color: var(--color-primary);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* The header and tabs are sticky, so a jumped-to card must clear them. */
+.pattern-card {
+  scroll-margin-top: 130px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
+@media print {
+  .xref { color: inherit; text-decoration: none; font-weight: inherit; }
+}

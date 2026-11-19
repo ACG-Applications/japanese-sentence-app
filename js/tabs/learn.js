@@ -30,7 +30,7 @@ var LearnTab = {
   // Helper function for rendering a single pattern card
   renderPatternCard: function (p, showFurigana, showTranslation) {
     var html = "";
-    html += '<div class="pattern-card">';
+    html += '<div class="pattern-card" id="pattern-' + p.number + '">';
     html += '<div class="card-header">';
     html += '<span class="card-number">#' + p.number + "</span>";
     html += '<span class="card-category">' + p.category + "</span>";
