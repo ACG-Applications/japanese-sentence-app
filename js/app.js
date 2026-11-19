@@ -51,6 +51,22 @@ var App = {
     this.renderTab(tab);
   },
 
+  // Return to the top of the current section without changing tab.
+  scrollToTop: function () {
+    var reduce =
+      window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    try {
+      window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
+    } catch (e) {
+      window.scrollTo(0, 0);
+    }
+    // drop any #pattern-n the reader arrived on, so the URL matches the view
+    if (window.history && history.replaceState) {
+      history.replaceState(null, "", window.location.pathname + window.location.search);
+    }
+  },
+
   renderTab: function (tab) {
     switch (tab) {
       case "learn":
@@ -81,7 +97,15 @@ var App = {
     var navBtns = document.querySelectorAll(".nav-btn");
     for (var i = 0; i < navBtns.length; i++) {
       navBtns[i].addEventListener("click", function () {
-        self.navigate(this.dataset.tab);
+        var tab = this.dataset.tab;
+        // Tapping the tab you are already on means "take me back to the top of this
+        // section" - the Learn tab is long enough that switching tabs and back was the
+        // only way to get there.
+        if (tab === self.currentTab) {
+          self.scrollToTop();
+          return;
+        }
+        self.navigate(tab);
       });
     }
 
