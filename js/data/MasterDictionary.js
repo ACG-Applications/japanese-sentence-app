@@ -452,7 +452,7 @@ var MasterDictionary = {
         },
       },
       notes:
-        "欲しい is an I-ADJECTIVE. ONLY for nouns (things you want to HAVE). For actions, use たい.",
+        "欲しい is an I-ADJECTIVE. ONLY for nouns (things you want to HAVE). For actions, use たい. See #21.",
       common_mistakes: [
         {
           mistake: "食べたいを欲しい",
