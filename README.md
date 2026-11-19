@@ -17,6 +17,16 @@
 3. Test yourself with quizzes
 4. Print cards for offline study
 
+## Brand assets
+
+- `icons/Antonio.png` - master artwork (two name seals). Reference only; not served
+  by the app.
+- `icons/antonio-mark.png` - the circular 我利亜野 seal, cropped square with a
+  transparent background. Used as the header mark.
+- `icons/antonio-mark-64.png` - 64px version, used as the favicon.
+
+To regenerate the marks from a new master, crop one seal to a square, make the
+white background transparent, and export at 256px and 64px.
 ## Customization
 Edit js/data/MasterDictionary.js to add your own patterns, vocabulary, and quiz questions.
 
