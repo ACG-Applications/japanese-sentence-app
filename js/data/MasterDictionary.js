@@ -38,7 +38,13 @@ var MasterDictionary = {
           furigana:
             "この<ruby>寿司<rt>すし</rt></ruby>は<ruby>美味<rt>おい</rt></ruby>しいです",
         },
-      ],
+                {
+            jp: "私は学生だ",
+            en: "I am a student (plain)",
+            furigana:
+              "<ruby>私<rt>わたし</rt></ruby>は<ruby>学生<rt>がくせい</rt></ruby>だ",
+          },
+        ],
       conjugations: {
         polite: {
           aff: "です",
@@ -83,7 +89,13 @@ var MasterDictionary = {
           furigana:
             "<ruby>私<rt>わたし</rt></ruby>は<ruby>寿司<rt>すし</rt></ruby>を<ruby>食<rt>た</rt></ruby>べます",
         },
-      ],
+                {
+            jp: "私は本を読む",
+            en: "I read a book (plain)",
+            furigana:
+              "<ruby>私<rt>わたし</rt></ruby>は<ruby>本<rt>ほん</rt></ruby>を<ruby>読<rt>よ</rt></ruby>む",
+          },
+        ],
       conjugations: {
         polite: {
           aff: "ます",
@@ -174,7 +186,13 @@ var MasterDictionary = {
           furigana:
             "<ruby>私<rt>わたし</rt></ruby>は<ruby>猫<rt>ねこ</rt></ruby>が<ruby>好<rt>す</rt></ruby>きです",
         },
-      ],
+                {
+            jp: "私は猫が好きだ",
+            en: "I like cats (plain)",
+            furigana:
+              "<ruby>私<rt>わたし</rt></ruby>は<ruby>猫<rt>ねこ</rt></ruby>が<ruby>好<rt>す</rt></ruby>きだ",
+          },
+        ],
       conjugations: {
         polite: {
           aff: "好きです",
@@ -219,7 +237,13 @@ var MasterDictionary = {
           en: "I can play piano",
           furigana: "<ruby>私<rt>わたし</rt></ruby>はピアノができます",
         },
-      ],
+                {
+            jp: "私は日本語ができる",
+            en: "I can speak Japanese (plain)",
+            furigana:
+              "<ruby>私<rt>わたし</rt></ruby>は<ruby>日本語<rt>にほんご</rt></ruby>ができる",
+          },
+        ],
       conjugations: {
         polite: {
           aff: "できます",
@@ -309,7 +333,13 @@ var MasterDictionary = {
           furigana:
             "バスで<ruby>学校<rt>がっこう</rt></ruby>へ<ruby>行<rt>い</rt></ruby>きます",
         },
-      ],
+                {
+            jp: "公園で本を読む",
+            en: "I read a book at the park (plain)",
+            furigana:
+              "<ruby>公園<rt>こうえん</rt></ruby>で<ruby>本<rt>ほん</rt></ruby>を<ruby>読<rt>よ</rt></ruby>む",
+          },
+        ],
       conjugations: {
         polite: {
           aff: "します",
@@ -354,7 +384,13 @@ var MasterDictionary = {
           furigana:
             "<ruby>私<rt>わたし</rt></ruby>は<ruby>妹<rt>いもうと</rt></ruby>にプレゼントをあげます",
         },
-      ],
+                {
+            jp: "妹にプレゼントをあげる",
+            en: "I give a present to my little sister (plain)",
+            furigana:
+              "<ruby>妹<rt>いもうと</rt></ruby>にプレゼントをあげる",
+          },
+        ],
       conjugations: {
         polite: {
           aff: "あげます",
@@ -382,7 +418,7 @@ var MasterDictionary = {
     {
       id: "p9",
       number: 9,
-      name: "X は Y が 欲しいです / だ",
+      name: "X は Y が 欲しいです / 欲しい",
       category: "core",
       meaning: "X wants Y",
       structure: "[Topic] は [Thing] が 欲しいです",

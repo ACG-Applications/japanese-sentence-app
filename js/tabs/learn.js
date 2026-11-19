@@ -55,14 +55,15 @@ var LearnTab = {
       return h;
     };
 
-    if (p.number === 1 && p.examples.length === 3) {
-      // Card #1 only: first two examples side-by-side, third full width.
-      // Keeps the card compact for printing while showing noun / na-adj / i-adj.
-      html += '<div class="example-row">';
-      html += renderExample(p.examples[0]);
-      html += renderExample(p.examples[1]);
-      html += "</div>";
-      html += renderExample(p.examples[2]);
+    if (p.number === 1 && p.examples.length >= 3) {
+      // Card #1 only: a 2-up grid, so noun / na-adj / i-adj / plain stay compact for
+      // printing instead of stacking into one tall column.
+      for (var r = 0; r < p.examples.length; r += 2) {
+        html += '<div class="example-row">';
+        html += renderExample(p.examples[r]);
+        if (p.examples[r + 1]) html += renderExample(p.examples[r + 1]);
+        html += "</div>";
+      }
     } else {
       // All other cards: unchanged stacked layout.
       for (var i = 0; i < p.examples.length; i++) {
