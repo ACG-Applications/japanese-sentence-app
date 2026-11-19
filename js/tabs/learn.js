@@ -44,6 +44,9 @@ var LearnTab = {
     var renderExample = function (ex) {
       var h = '<div class="card-example">';
       var displayText = ex.furigana || ex.jp;
+      if (window.ParticleHighlight) {
+        displayText = ParticleHighlight.apply(displayText, p.particles || []);
+      }
       h += '<div class="jp-example">' + displayText + "</div>";
       if (showTranslation) {
         h += '<div class="en-example">→ ' + ex.en + "</div>";

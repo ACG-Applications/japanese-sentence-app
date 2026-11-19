@@ -44,6 +44,9 @@ var GrammarTab = {
         }
         if (p.example) {
           var displayText = p.example.furigana || p.example.jp || "";
+          if (window.ParticleHighlight) {
+            displayText = ParticleHighlight.apply(displayText, [p.kana]);
+          }
           html +=
             '<div style="background:#f7f7f7;padding:8px 12px;border-radius:4px;font-family:var(--font-jp);">';
           html += "<span class='jp-example'>" + displayText + "</span>";

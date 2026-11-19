@@ -42,6 +42,9 @@ var CardsTab = {
         ? p.examples[0].furigana || p.examples[0].jp
         : p.name;
     var cleanText = this.stripHtml(displayText);
+    if (window.ParticleHighlight) {
+      displayText = ParticleHighlight.apply(displayText, p.particles || []);
+    }
     html +=
       "<div class='jp-text' data-jp='" +
       cleanText +
