@@ -85,6 +85,19 @@ var App = {
       });
     }
 
+    // Cross-reference navigation. A "See #n" link jumps to that card, but an
+    // installed PWA has no browser Back button, so the destination card offers a
+    // way back - shown only on the card you jumped to, and only until used.
+    document.addEventListener("click", function (e) {
+      var link = e.target.closest ? e.target.closest(".xref") : null;
+      if (!link) return;
+      var from = link.closest(".pattern-card");
+      var targetId = link.getAttribute("href") || "";
+      var target = targetId.charAt(0) === "#" ? document.getElementById(targetId.slice(1)) : null;
+      if (!from || !from.id || !target) return;
+      self.showXrefBack(target, from.id);
+    });
+
     // Toggles
     var fBtn = document.getElementById("furigana-toggle");
     if (fBtn)
@@ -195,6 +208,34 @@ var App = {
       status.className = "toggle-status " + (this.ttsEnabled ? "on" : "off");
     }
     console.log("TTS is now " + (this.ttsEnabled ? "ON" : "OFF"));
+  },
+
+  // Put a "back to #n" control on the card you jumped to.
+  showXrefBack: function (targetCard, fromId) {
+    var existing = document.querySelector(".xref-back");
+    if (existing) existing.parentNode.removeChild(existing);
+
+    var header = targetCard.querySelector(".card-header");
+    var num = targetCard.querySelector(".card-number");
+    if (!header || !num) return;
+
+    var label = fromId.replace("pattern-", "#");
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "xref-back no-print";
+    btn.textContent = "\u2190 " + label;
+    btn.title = "Back to card " + label;
+    btn.setAttribute("aria-label", "Back to card " + label);
+    btn.addEventListener("click", function () {
+      var src = document.getElementById(fromId);
+      if (src) src.scrollIntoView({ block: "start", behavior: "smooth" });
+      if (window.history && history.replaceState) {
+        history.replaceState(null, "", "#" + fromId);
+      }
+      if (btn.parentNode) btn.parentNode.removeChild(btn);
+    });
+
+    num.parentNode.insertBefore(btn, num.nextSibling);
   },
 
   // ─── TTS (Text-to-Speech) ───
