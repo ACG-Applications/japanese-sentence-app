@@ -2,7 +2,7 @@
 // SERVICE WORKER - Japanese Sentence Structure App
 // ============================================================
 
-var CACHE_NAME = 'japanese-sentence-app-v5';
+var CACHE_NAME = "japanese-sentence-app-v6";
 var urlsToCache = [
   './',
   './index.html',

@@ -98,6 +98,52 @@ var App = {
         self.toggleTranslation();
       });
 
+    // Sticky bar: the header (with the toggles) and the tab bar ride together at the
+    // top. A sentinel + IntersectionObserver drives the "stuck" state - it also fires
+    // on iOS momentum scrolling - with a passive scroll listener alongside it.
+    var header = document.getElementById("app-header");
+    var nav = document.getElementById("app-nav");
+    var stickyBar = null;
+
+    if (header && nav && nav.parentNode === header.parentNode) {
+      stickyBar = document.createElement("div");
+      stickyBar.id = "sticky-bar";
+      header.parentNode.insertBefore(stickyBar, header);
+      stickyBar.appendChild(header);
+      stickyBar.appendChild(nav);
+    }
+
+    var stuckTarget = stickyBar || header;
+    if (stuckTarget) {
+      var setStuck = function (stuck) {
+        stuckTarget.classList.toggle("is-stuck", stuck);
+      };
+
+      if ("IntersectionObserver" in window) {
+        var sentinel = document.createElement("div");
+        sentinel.setAttribute("aria-hidden", "true");
+        sentinel.style.cssText =
+          "position:absolute;top:0;left:0;width:1px;height:60px;pointer-events:none;";
+        document.body.insertBefore(sentinel, document.body.firstChild);
+        new IntersectionObserver(
+          function (entries) {
+            setStuck(!entries[0].isIntersecting);
+          },
+          { threshold: 0 },
+        ).observe(sentinel);
+      }
+
+      // Also listen for scroll directly: the observer settles on the next frame, so a
+      // fast flick can otherwise paint one frame with the wrong chrome height.
+      window.addEventListener(
+        "scroll",
+        function () {
+          setStuck((window.scrollY || window.pageYOffset || 0) > 40);
+        },
+        { passive: true },
+      );
+    }
+
     var sBtn = document.getElementById("tts-toggle");
     if (sBtn)
       sBtn.addEventListener("click", function () {

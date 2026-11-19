@@ -7,6 +7,50 @@
     padding: 0 20px;
 }
 
+/* The header carries the Furigana / Translation / TTS / Print controls and the tab bar
+   is the only way to change section, so both ride at the top of the page. js/app.js
+   wraps them in #sticky-bar; the header compacts on scroll so a phone keeps its screen. */
+#sticky-bar {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  background: var(--color-bg);
+  transition: box-shadow 0.18s ease;
+}
+
+#sticky-bar.is-stuck {
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+#app-header { transition: padding 0.18s ease; }
+
+/* Stuck: drop the wordmark and the button words; the F / T / S icons and the ON / OFF
+   pills still say what each control is, and 158px of header becomes ~48px. */
+#sticky-bar.is-stuck #app-header { padding: 8px 0; }
+#sticky-bar.is-stuck #app-header .logo span { display: none; }
+#sticky-bar.is-stuck .toggle-btn { padding: 4px 8px; }
+#sticky-bar.is-stuck .toggle-btn > span:not(.toggle-icon):not(.toggle-status) { display: none; }
+
+/* The tab bar stays legible but loses its generous padding while docked. */
+#sticky-bar.is-stuck #app-nav { padding: 6px 0; }
+#sticky-bar.is-stuck .nav-btn { padding: 5px 12px; font-size: 13px; }
+
+@media (max-width: 768px) {
+  #sticky-bar.is-stuck #app-header {
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+  }
+  #sticky-bar.is-stuck #app-header .controls {
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+  }
+}
+
+@media print {
+  #sticky-bar { position: static; box-shadow: none; }
+}
+
 #app-header {
     display: flex;
     justify-content: space-between;
