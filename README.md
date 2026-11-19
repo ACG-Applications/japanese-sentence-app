@@ -18,7 +18,7 @@
 4. Print cards for offline study
 
 ## Customization
-Edit UserDictionary.js to add your own patterns, vocabulary, and quiz questions.
+Edit js/data/MasterDictionary.js to add your own patterns, vocabulary, and quiz questions.
 
 ## License
 MIT - Free for personal and educational use.

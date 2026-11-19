@@ -34,7 +34,7 @@ var App = {
 
   updateProgress: function () {
     var count = document.getElementById("progress-count");
-    if (count) count.textContent = "0/" + this.patterns.length;
+    if (count) count.textContent = this.patterns.length;
   },
 
   // ─── NAVIGATION & RENDERING ───

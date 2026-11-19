@@ -26,7 +26,7 @@ var GrammarTab = {
         html +=
           "<div style='border:1px solid #eee;border-radius:8px;padding:16px;margin-bottom:12px;'>";
         html +=
-          "<div style='font-size:20px;font-weight:700;font-family:'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif;'>";
+          '<div style="font-size:20px;font-weight:700;font-family:var(--font-jp);">';
         html += p.kana;
         if (p.romaji) {
           html +=
@@ -45,7 +45,7 @@ var GrammarTab = {
         if (p.example) {
           var displayText = p.example.furigana || p.example.jp || "";
           html +=
-            "<div style='background:#f7f7f7;padding:8px 12px;border-radius:4px;font-family:'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif;'>";
+            '<div style="background:#f7f7f7;padding:8px 12px;border-radius:4px;font-family:var(--font-jp);">';
           html += "<span class='jp-example'>" + displayText + "</span>";
           if (
             p.example.en &&

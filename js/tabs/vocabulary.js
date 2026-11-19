@@ -93,28 +93,30 @@ var VocabularyTab = {
   getVocab: function () {
     var md = window.MasterDictionary || {};
     var result = [];
-    var verbs = md.verbs || {};
-    var keys = Object.keys(verbs);
-    for (var i = 0; i < keys.length; i++) {
-      var arr = verbs[keys[i]];
-      if (Array.isArray(arr)) {
+    // Every vocabulary group in the dictionary, so nothing is silently left out.
+    var groups = [
+      { data: md.verbs, label: "verb" },
+      { data: md.nouns, label: null },
+      { data: md.adjectives, label: null },
+      { data: md.adverbs, label: null },
+      { data: md.expressions, label: "expression" },
+    ];
+    for (var g = 0; g < groups.length; g++) {
+      var data = groups[g].data || {};
+      var keys = Object.keys(data);
+      for (var i = 0; i < keys.length; i++) {
+        var arr = data[keys[i]];
+        if (!Array.isArray(arr)) continue;
         for (var j = 0; j < arr.length; j++) {
-          var v = arr[j];
-          v.category = "verb";
-          result.push(v);
-        }
-      }
-    }
-    var nouns = md.nouns || {};
-    var nKeys = Object.keys(nouns);
-    for (var k = 0; k < nKeys.length; k++) {
-      var cat = nKeys[k];
-      var arr2 = nouns[cat];
-      if (Array.isArray(arr2)) {
-        for (var l = 0; l < arr2.length; l++) {
-          var n = arr2[l];
-          n.category = cat;
-          result.push(n);
+          var entry = arr[j];
+          if (!entry) continue;
+          // Copy rather than tag the dictionary entry, so tabs never mutate the data.
+          var copy = {};
+          for (var field in entry) {
+            if (Object.prototype.hasOwnProperty.call(entry, field)) copy[field] = entry[field];
+          }
+          copy.category = groups[g].label || keys[i];
+          result.push(copy);
         }
       }
     }
