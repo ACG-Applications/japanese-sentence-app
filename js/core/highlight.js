@@ -12,6 +12,28 @@
     return String(s).replace(ESCAPE, "\\$&");
   }
 
+  // Words that merely contain a particle character. Masked before matching so a
+  // declared は never lights up the は in はず, or で the で in です.
+  var MASK_WORDS = ["です", "でし", "でき", "はず", "こと", "もの", "もう", "ながら", "つもり", "かもしれ", "よう", "ないで"];
+  var MASK_CHAR = "\u0001";
+
+  function maskWords(text) {
+    var store = [];
+    var masked = text.replace(new RegExp(MASK_WORDS.join("|"), "g"), function (m) {
+      store.push(m);
+      return MASK_CHAR;
+    });
+    return { masked: masked, store: store };
+  }
+
+  function unmaskWords(text, store) {
+    if (!store.length) return text;
+    var i = 0;
+    return text.replace(new RegExp(MASK_CHAR, "g"), function () {
+      return store[i++];
+    });
+  }
+
   // Wrap declared particles inside a run of text, leaving markup alone.
   function highlightText(text, declared) {
     if (!text || !declared || !declared.length) return text;
@@ -24,8 +46,10 @@
         return String(b).length - String(a).length;
       });
     if (!list.length) return text;
+    var masked = maskWords(text);
     var re = new RegExp("(" + list.map(escapeRe).join("|") + ")", "g");
-    return text.replace(re, '<span class="particle-highlight">$1</span>');
+    var highlighted = masked.masked.replace(re, '<span class="particle-highlight">$1</span>');
+    return unmaskWords(highlighted, masked.store);
   }
 
   var ParticleHighlight = {

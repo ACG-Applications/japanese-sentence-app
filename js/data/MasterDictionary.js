@@ -69,7 +69,7 @@ var MasterDictionary = {
       category: "core",
       meaning: "X does [verb] to Y",
       structure: "[Topic] は [Object] を [Verb]",
-      particles: ["を"],
+      particles: ["は", "を"],
       examples: [
         {
           jp: "私は本を読みます",
@@ -109,7 +109,7 @@ var MasterDictionary = {
       category: "core",
       meaning: "Y exists at X / There is Y at X",
       structure: "[Location] に [Thing] が あります/います",
-      particles: ["に", "が"],
+      particles: ["の", "に", "が"],
       examples: [
         {
           jp: "机の上に本があります",
@@ -160,7 +160,7 @@ var MasterDictionary = {
       category: "core",
       meaning: "X likes Y",
       structure: "[Topic] は [Thing] が 好きです",
-      particles: ["が"],
+      particles: ["は", "が"],
       examples: [
         {
           jp: "私は寿司が好きです",
@@ -206,7 +206,7 @@ var MasterDictionary = {
       category: "core",
       meaning: "X can do Y / X is able to do Y",
       structure: "[Topic] は [Ability] が できます",
-      particles: ["が"],
+      particles: ["は", "が"],
       examples: [
         {
           jp: "私は日本語ができます",
@@ -250,7 +250,7 @@ var MasterDictionary = {
       category: "core",
       meaning: "Go to X / Come to X",
       structure: "[Place] へ/に 行きます/来ます",
-      particles: ["へ", "に"],
+      particles: ["へ", "の", "に"],
       examples: [
         {
           jp: "学校へ行きます",
@@ -295,7 +295,7 @@ var MasterDictionary = {
       category: "core",
       meaning: "Do Y at X / Do Y by means of X",
       structure: "[Place/Means] で [Action] を します",
-      particles: ["で"],
+      particles: ["で", "を", "へ"],
       examples: [
         {
           jp: "公園で本を読みます",
@@ -340,7 +340,7 @@ var MasterDictionary = {
       category: "core",
       meaning: "Give Z to Y",
       structure: "[Giver] は [Receiver] に [Thing] を あげます",
-      particles: ["に", "を"],
+      particles: ["は", "に", "を"],
       examples: [
         {
           jp: "私は友達に本をあげます",
@@ -386,7 +386,7 @@ var MasterDictionary = {
       category: "core",
       meaning: "X wants Y",
       structure: "[Topic] は [Thing] が 欲しいです",
-      particles: ["が"],
+      particles: ["は", "が"],
       examples: [
         {
           jp: "私はコーヒーが欲しいです",
@@ -476,7 +476,7 @@ var MasterDictionary = {
       category: "requests",
       meaning: "Please do [verb]",
       structure: "[Verb て-form] + ください",
-      particles: ["を"],
+      particles: [],
       examples: [
         {
           jp: "見てください",
@@ -508,7 +508,7 @@ var MasterDictionary = {
       category: "requests",
       meaning: "May I/you do [verb]? / It's okay to [verb]",
       structure: "[Verb て-form] + も いいです",
-      particles: ["を"],
+      particles: ["に", "も", "か"],
       examples: [
         {
           jp: "食べてもいいですか？",
@@ -540,7 +540,7 @@ var MasterDictionary = {
       category: "requests",
       meaning: "Must not do [verb]",
       structure: "[Verb て-form] + は いけません",
-      particles: ["は"],
+      particles: ["に", "を", "は"],
       examples: [
         {
           jp: "食べてはいけません",
@@ -573,7 +573,7 @@ var MasterDictionary = {
       category: "requests",
       meaning: "Have done [verb] before",
       structure: "[Verb た-form] + ことが あります",
-      particles: ["が"],
+      particles: ["に", "が", "を", "か"],
       examples: [
         {
           jp: "日本に行ったことがあります",
@@ -645,7 +645,7 @@ var MasterDictionary = {
       category: "time_sequence",
       meaning: "After doing [A], do [B]",
       structure: "[Verb A て-form] + から + [Verb B]",
-      particles: ["を"],
+      particles: ["から", "を"],
       examples: [
         {
           jp: "食べてから行きます",
@@ -742,7 +742,7 @@ var MasterDictionary = {
       category: "time_sequence",
       meaning: "I intend to do [verb]",
       structure: "[Verb dictionary form] + つもり です",
-      particles: ["を"],
+      particles: ["に", "は"],
       examples: [
         {
           jp: "日本に行くつもりです",
@@ -781,7 +781,7 @@ var MasterDictionary = {
       category: "time_sequence",
       meaning: "Before doing [verb]",
       structure: "[Verb dictionary form] + 前に",
-      particles: ["に"],
+      particles: ["に", "を"],
       examples: [
         {
           jp: "行く前に食べます",
@@ -812,7 +812,7 @@ var MasterDictionary = {
       category: "desire",
       meaning: "I think I want to [verb]",
       structure: "[Verb たい-form] + と 思う",
-      particles: ["と"],
+      particles: ["と", "を"],
       examples: [
         {
           jp: "行きたいと思います",
@@ -855,7 +855,7 @@ var MasterDictionary = {
       category: "desire",
       meaning: "How about doing [verb]?",
       structure: "[Verb た-form] + ら どう？",
-      particles: ["を"],
+      particles: [],
       examples: [
         {
           jp: "行ったらどう？",
@@ -884,7 +884,7 @@ var MasterDictionary = {
       category: "desire",
       meaning: "Let's do [verb]",
       structure: "[Verb ます-stem] + ましょう",
-      particles: ["を"],
+      particles: [],
       examples: [
         {
           jp: "行きましょう",
@@ -913,7 +913,7 @@ var MasterDictionary = {
       category: "desire",
       meaning: "Won't you do [verb]?",
       structure: "[Verb ます-stem] + ませんか",
-      particles: ["を"],
+      particles: ["か", "を"],
       examples: [
         {
           jp: "行きませんか？",
@@ -1011,7 +1011,7 @@ var MasterDictionary = {
       category: "giving",
       meaning: "Receive [verb] from someone",
       structure: "[Verb て-form] + もらう",
-      particles: ["に", "から", "を"],
+      particles: ["に", "を"],
       examples: [
         {
           jp: "教えてもらった",
@@ -1045,7 +1045,7 @@ var MasterDictionary = {
       category: "advanced",
       meaning: "Maybe [verb] / It might [verb]",
       structure: "[Verb plain form] + かもしれない",
-      particles: ["を"],
+      particles: ["は", "が"],
       examples: [
         {
           jp: "明日は雨が降るかもしれない",
@@ -1080,7 +1080,7 @@ var MasterDictionary = {
       category: "advanced",
       meaning: "It should [verb] / It is expected to [verb]",
       structure: "[Verb plain form] + はず です",
-      particles: ["を"],
+      particles: ["は", "に"],
       examples: [
         {
           jp: "彼は来るはずです",
@@ -1119,7 +1119,7 @@ var MasterDictionary = {
       category: "advanced",
       meaning: "So that [verb] / In order to [verb]",
       structure: "[Verb dictionary form] + ように",
-      particles: ["を"],
+      particles: ["が", "に"],
       examples: [
         {
           jp: "日本語が上手になるように勉強します",
@@ -1150,7 +1150,7 @@ var MasterDictionary = {
       category: "advanced",
       meaning: "Too much [verb] / Overdo [verb]",
       structure: "[Verb ます-stem] + すぎる",
-      particles: ["を"],
+      particles: [],
       examples: [
         {
           jp: "食べすぎた",
@@ -1210,7 +1210,7 @@ var MasterDictionary = {
       category: "advanced",
       meaning: "Has been done (state)",
       structure: "[Verb て-form] + ある",
-      particles: ["が", "を"],
+      particles: ["が"],
       examples: [
         {
           jp: "ドアが開けてある",
@@ -1247,7 +1247,7 @@ var MasterDictionary = {
       category: "advanced",
       meaning: "If [verb]",
       structure: "[Verb ば-form]",
-      particles: ["を"],
+      particles: [],
       examples: [
         {
           jp: "行けばわかる",
@@ -1282,7 +1282,7 @@ var MasterDictionary = {
       category: "advanced",
       meaning: "If [verb] (topic conditional)",
       structure: "[Verb plain form] + なら",
-      particles: ["を"],
+      particles: ["も", "が"],
       examples: [
         {
           jp: "行くなら、私も行く",
